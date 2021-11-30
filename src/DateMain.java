@@ -8,6 +8,7 @@ public class DateMain {
         System.out.println(d1.isbisex());
         System.out.println(d2.isbisex());
         System.out.println(d3.isbisex());
-     d1.adddate();
+        d1.adddate();
+        d1.printdate();
     }
 }

@@ -1,9 +1,9 @@
 public class Date {
 
     private final String[] month = {"janvier", "fevier", "mars", "avril", "mai", "juin", "juillet", "aout", "juillet", "aout", "septembre", "octobre", "novembre", "decembre"};
-    private final int day;
-    private final int year;
-    private final int months;
+    private  int day;
+    private  int year;
+    private  int months;
 
 
     public Date(int jour, int mois, int annee) {
@@ -38,7 +38,7 @@ public class Date {
     }
 
     public void adddate() {
-//        this.day=this.day+1;
+        this.day=this.day+1;
     }
 
 
