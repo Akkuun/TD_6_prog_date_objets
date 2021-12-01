@@ -19,12 +19,17 @@ public class Date {
     }
 
     public int getDay() {
+
         return day;
     }
 
     public String getMonths() {
 
         return month[months - 1];
+    }
+
+    public int getMonth() {
+        return months;
     }
 
 
@@ -49,10 +54,10 @@ public class Date {
 
 
         if (day > maxjours[months - 1]) {
-            months ++;
+            months++;
             day = 1;
             if (months > 12) {
-                year ++;
+                year++;
                 months = 1;
             }
         }
@@ -64,13 +69,68 @@ public class Date {
 
         return new Date(d1.day, d1.months, d1.year).addjour();
     }
-    public boolean testdate(Date d1,Date d2){
+
+    public boolean isequal(Date d2) {
         //if d1.day = d2.day ==true return true
-        boolean issame=false;
-        if (d1.day!=d2.day&&d1.months!= d2.months&&d1.year!=d2.year){
-            issame=!issame;
+        boolean issame = false;
+        if (this.day == d2.day && this.months == d2.months && this.year == d2.year) {
+            issame = true;
         }
         return issame;
     }
 
+    public boolean isposterieur(Date d2) {
+        boolean isposterieur = false;
+        if (day < d2.day || months < d2.months || year < d2.year) { // || car si on met && bah on peut avoir un nombre de mois plus petit mais le nb de jour non
+            isposterieur = true;
+        }
+        return isposterieur;
+    }
+
+    public boolean issuprerior(Date d2) {
+        boolean issuperior = false;
+        if (day > d2.day || months > d2.months || year > d2.year) { // || car si on met && bah on peut avoir un nombre de mois plus petit mais le nb de jour non
+            issuperior = true;
+        }
+        return issuperior;
+    }
+
+    public int countDay(Date d2) {
+        int count = 0;
+        int nb_jour_entre_mois = 0;
+        if (isbisex()) { //366 jours
+            if (isposterieur(d2)) { // cas où d1 est inferieur à d2 donc on fait d2-d1
+                for (int i = 0; i < d2.months - months; i++) { // on calcul le nombre de jour entre le mois 1 et le mois 2
+                    nb_jour_entre_mois = nb_jour_entre_mois + maxjours[(d2.months - 1) - i]; // on compte le nombre de mois=> maxjour[mois_max_actuelle2]+[mois_max_actuelle2-1] .. etc
+                }//jusqua atteindre maxjours[mois_max_actuelle_1]
+                count = ((d2.year - year) * 366) + (nb_jour_entre_mois) + (d2.day) - day;
+            }
+            if (issuprerior(d2)) { // cas où d1 est superieur à d2 donc on fait d1-d2
+                for (int i = 0; i < months - d2.months; i++) {
+                    nb_jour_entre_mois = nb_jour_entre_mois + maxjours[(months - 1) - i];
+                }
+                count = ((year - d2.year) * 366) + (nb_jour_entre_mois) + (day) - d2.day;
+            }
+
+        }
+
+        if (!isbisex()) { //365 jours
+            if (isposterieur(d2)) { // cas où d1 est inferieur à d2 donc on fait d2-d1
+                for (int i = 0; i < d2.months - months; i++) {
+                    nb_jour_entre_mois = nb_jour_entre_mois + maxjours[(d2.months - 1) - i];
+                }
+                count = ((d2.year - year) * 365) + (nb_jour_entre_mois) + (d2.day) - day;
+            }
+            if (issuprerior(d2)) { // cas où d1 est superieur à d2 donc on fait d1-d2
+                for (int i = 0; i < months - d2.months; i++) {
+                    nb_jour_entre_mois = nb_jour_entre_mois + maxjours[(months - 1) - i];
+                }
+                count = ((year - d2.year) * 365) + (nb_jour_entre_mois) + (day) - d2.day;
+            }
+
+        }
+
+
+        return count;
+    }
 }
