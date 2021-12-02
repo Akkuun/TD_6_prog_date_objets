@@ -9,10 +9,10 @@ public class Date {
     private int months;
 
 
+
     public Date(int jour, int mois, int annee) {
 
         maxjours[1] = isbisex() ? 29 : 28; //is isbisex=true maxjour[1] =29 else maxjour[1] =28
-
         day = jour;
         months = mois;
         year = annee;
@@ -59,8 +59,10 @@ public class Date {
             if (months > 12) {
                 year++;
                 months = 1;
+
             }
         }
+
         return this;
     }
 
@@ -97,8 +99,8 @@ public class Date {
 
     public int countDay(Date d2) {
         int count = 0;
-        int nb_jour_entre_mois = 0;
-        if (isbisex()) { //366 jours
+
+        /*if (isbisex()) { //366 jours
             if (isposterieur(d2)) { // cas où d1 est inferieur à d2 donc on fait d2-d1
                 for (int i = 0; i < d2.months - months; i++) { // on calcul le nombre de jour entre le mois 1 et le mois 2
                     nb_jour_entre_mois = nb_jour_entre_mois + maxjours[(d2.months - 1) - i]; // on compte le nombre de mois=> maxjour[mois_max_actuelle2]+[mois_max_actuelle2-1] .. etc
@@ -128,8 +130,13 @@ public class Date {
                 count = ((year - d2.year) * 365) + (nb_jour_entre_mois) + (day) - d2.day;
             }
 
-        }
+        }*/
+        while (!this.isequal(d2)) { //tant que d1 est pas égal à d2 on incrémente d1 jusqu'a atteindre d2
 
+            this.addjour();
+            count++;
+
+        }
 
         return count;
     }
