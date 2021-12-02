@@ -99,6 +99,7 @@ public class Date {
 
     public int countDay(Date d2) {
         int count = 0;
+        Date copie = new Date(day,months,year);
 
         /*if (isbisex()) { //366 jours
             if (isposterieur(d2)) { // cas où d1 est inferieur à d2 donc on fait d2-d1
@@ -133,7 +134,7 @@ public class Date {
         }*/
         while (!this.isequal(d2)) { //tant que d1 est pas égal à d2 on incrémente d1 jusqu'a atteindre d2
 
-            this.addjour();
+            copie.addjour();
             count++;
 
         }
